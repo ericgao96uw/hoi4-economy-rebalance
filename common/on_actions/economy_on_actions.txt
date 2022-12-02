@@ -1,0 +1,559 @@
+on_actions = {
+    on_startup = {
+
+        # calculate war_exhaustion ( range=[-1, 0] ) = -1 + war_support
+        effect = {
+            if = {
+                limit = {
+                    always = yes
+                }
+            }
+            every_country = {
+                limit = {
+                    always = yes
+                }
+                set_variable = {
+                    var = war_exhaustion
+                    value = -1
+                }
+                add_to_variable = { war_exhaustion = has_war_support}
+            }
+        }
+
+        # calculate war_economy_stability_factor
+        effect = {
+            if = {
+                limit = {
+                    always = yes
+                }
+                every_country = {
+                    limit = {
+                        always = yes
+                    }
+                    set_variable = {
+                        var = war_economy_stability_factor
+                        value = war_exhaustion
+                    }
+
+                    if = {
+                        limit = {
+                            has_defensive_war = yes
+                        }
+                        multiply_variable = { war_economy_stability_factor = 0 }
+                    } else_if = {
+                        limit = {
+                            has_offensive_war = yes
+                            OR = { 
+                                has_government = fascism
+                                has_government = communism
+                            }
+                        }
+                        multiply_variable = { war_economy_stability_factor = 0.075 }
+                    } else_if = {
+                        limit = {
+                            has_offensive_war = yes
+                        }
+                        multiply_variable = { war_economy_stability_factor = 0.15 }
+                    } else_if = {
+                        limit = {
+                            has_war = no
+                            OR = {
+                                has_government = fascism
+                                has_government = communism
+                            }
+                        }
+                        multiply_variable = { war_economy_stability_factor = 0.15 }
+                    } else_if = {
+                        limit = {
+                            has_war = no
+                        }
+                        multiply_variable = { war_economy_stability_factor = 0.3 }
+                    }
+                }
+            }
+        }
+
+        # calculate tot_economic_mobilisation_weekly_stability_factor
+        effect = {
+            if = {
+                limit = {
+                    always = yes
+                }
+                every_country = {
+                    limit = {
+                        always = yes
+                    }
+                    set_variable = {
+                        var = tot_economic_mobilisation_weekly_stability_factor
+                        value = war_exhaustion
+                    }
+    
+                    if = {
+                        limit = {
+                            has_defensive_war = yes
+                        }
+                        multiply_variable = { tot_economic_mobilisation_weekly_stability_factor = 0 }
+                    } else_if = {
+                        limit = {
+                            has_offensive_war = yes
+                        }
+                        multiply_variable = { tot_economic_mobilisation_weekly_stability_factor = 0.005 }
+                    } else_if = {
+                        limit = {
+                            has_war = no
+                        }
+                        multiply_variable = { tot_economic_mobilisation_weekly_stability_factor = 0.02 }
+                    }
+                }
+            }
+        }
+
+        # calculate partial_economic_mobilisation_political_power_factor
+        effect = {
+            if = {
+                limit = {
+                    always = yes
+                }
+                every_country = {
+                    limit = {
+                        always = yes
+                    }
+                    set_variable = {
+                        var = partial_economic_mobilisation_political_power_factor
+                        value = war_exhaustion
+                    }
+
+                    if = {
+                        limit = {
+                            has_defensive_war = yes
+                        }
+                        multiply_variable = { partial_economic_mobilisation_political_power_factor = 0 }
+                    } else_if = {
+                        limit = {
+                            has_offensive_war = yes
+                            OR = {
+                                has_government = fascism
+                                has_government = communism
+                            }
+                        }
+                        multiply_variable = { partial_economic_mobilisation_political_power_factor = 0.05 }
+                    } else_if = {
+                        limit = {
+                            has_offensive_war = yes
+                        }
+                        multiply_variable = { partial_economic_mobilisation_political_power_factor = 0.1 }
+                    } else_if = {
+                        limit = {
+                            has_war = no
+                            OR = {
+                                has_government = fascism
+                                has_government = communism
+                            }
+                        }
+                        multiply_variable = { partial_economic_mobilisation_political_power_factor = 0.15 }
+                    } else_if = {
+                        limit = {
+                            has_war = no
+                        }
+                        multiply_variable = { partial_economic_mobilisation_political_power_factor = 0.2 }
+                    }
+                }
+            }
+        }
+
+        # calculate war_economy_political_power_factor
+        effect = {
+            if = {
+                limit = {
+                    always = yes
+                }
+                every_country = {
+                    limit = {
+                        always = yes
+                    }
+                    set_variable = {
+                        var = war_economy_political_power_factor
+                        value = war_exhaustion
+                    }
+
+                    if = {
+                        limit = {
+                            has_defensive_war = yes
+                        }
+                        multiply_variable = { war_economy_political_power_factor = 0 }
+                    } else_if = {
+                        limit = {
+                            has_offensive_war = yes
+                            OR = {
+                                has_government = fascism
+                                has_government = communism
+                            }
+                        }
+                        multiply_variable = { war_economy_political_power_factor = 0.1 }
+                    } else_if = {
+                        limit = {
+                            has_offensive_war = yes
+                        }
+                        multiply_variable = { war_economy_political_power_factor = 0.15 }
+                    } else_if = {
+                        limit = {
+                            has_war = no
+                            OR = {
+                                has_government = fascism
+                                has_government = communism
+                            }
+                        }
+                        multiply_variable = { war_economy_political_power_factor = 0.2 }
+                    } else_if = {
+                        limit = {
+                            has_war = no
+                        }
+                        multiply_variable = { war_economy_political_power_factor = 0.25 }
+                    }
+                }
+            }
+        }
+
+        # calculate tot_economic_mobilisation_political_power_factor
+        effect = {
+            if = {
+                limit = {
+                    always = yes
+                }
+                every_country = {
+                    limit = {
+                        always = yes
+                    }
+                    set_variable = {
+                        var = tot_economic_mobilisation_political_power_factor
+                        value = war_exhaustion
+                    }
+
+                    if = {
+                        limit = {
+                            has_defensive_war = yes
+                        }
+                        multiply_variable = { tot_economic_mobilisation_political_power_factor = 0.05 }
+                    } else_if = {
+                        limit = {
+                            has_offensive_war = yes
+                        }
+                        multiply_variable = { tot_economic_mobilisation_political_power_factor = 0.4 }
+                    } else_if = {
+                        limit = {
+                            has_war = no
+                        }
+                        multiply_variable = { tot_economic_mobilisation_political_power_factor = 0.8 }
+                    }
+                }
+            }
+        }
+
+        # Apply partial_economic_mobilisation_dynamic_modifier
+        effect = {
+            if = {
+                limit = {
+                    always = yes
+                }
+                every_country = {
+                    limit = {
+                        has_idea = partial_economic_mobilisation
+                    }
+
+                    add_dynamic_modifier = {
+                        modifier = partial_economic_mobilisation_dynamic_modifier
+                        scope = ROOT
+                    }
+                }
+            }
+        }
+
+        # Apply war_economy_dynamic_modifier
+        effect = {
+            if = {
+                limit = {
+                    always = yes
+                }
+                every_country = {
+                    limit = {
+                        has_idea = war_economy
+                    }
+
+                    add_dynamic_modifier = {
+                        modifier = war_economy_dynamic_modifier
+                        scope = ROOT
+                    }
+                }
+            }
+        }
+
+        # Apply tot_economic_mobilisation_dynamic_modifier
+        effect = {
+            if = {
+                limit = {
+                    always = yes
+                }
+                every_country = {
+                    limit = {
+                        has_idea = tot_economic_mobilisation
+                    }
+
+                    add_dynamic_modifier = {
+                        modifier = tot_economic_mobilisation_dynamic_modifier
+                        scope = ROOT
+                    }
+                }
+            }
+        }
+    }
+
+    on_monthly = {
+        # calculate war_exhaustion ( range=[-1, 0] ) = -1 + war_support
+        effect = {
+            if = {
+                limit = {
+                    always = yes
+                }
+            }
+            every_country = {
+                limit = {
+                    always = yes
+                }
+                set_variable = {
+                    var = war_exhaustion
+                    value = -1
+                }
+                add_to_variable = { war_exhaustion = has_war_support}
+            }
+        }
+
+        # calculate war_economy_stability_factor
+        effect = {
+            if = {
+                limit = {
+                    always = yes
+                }
+                every_country = {
+                    limit = {
+                        always = yes
+                    }
+                    set_variable = {
+                        var = war_economy_stability_factor
+                        value = war_exhaustion
+                    }
+
+                    if = {
+                        limit = {
+                            has_defensive_war = yes
+                        }
+                        multiply_variable = { war_economy_stability_factor = 0 }
+                    } else_if = {
+                        limit = {
+                            has_offensive_war = yes
+                            OR = { 
+                                has_government = fascism
+                                has_government = communism
+                            }
+                        }
+                        multiply_variable = { war_economy_stability_factor = 0.075 }
+                    } else_if = {
+                        limit = {
+                            has_offensive_war = yes
+                        }
+                        multiply_variable = { war_economy_stability_factor = 0.15 }
+                    } else_if = {
+                        limit = {
+                            has_war = no
+                            OR = {
+                                has_government = fascism
+                                has_government = communism
+                            }
+                        }
+                        multiply_variable = { war_economy_stability_factor = 0.15 }
+                    } else_if = {
+                        limit = {
+                            has_war = no
+                        }
+                        multiply_variable = { war_economy_stability_factor = 0.3 }
+                    }
+                }
+            }
+        }
+
+        # calculate tot_economic_mobilisation_weekly_stability_factor
+        effect = {
+            if = {
+                limit = {
+                    always = yes
+                }
+                every_country = {
+                    limit = {
+                        always = yes
+                    }
+                    set_variable = {
+                        var = tot_economic_mobilisation_weekly_stability_factor
+                        value = war_exhaustion
+                    }
+    
+                    if = {
+                        limit = {
+                            has_defensive_war = yes
+                        }
+                        multiply_variable = { tot_economic_mobilisation_weekly_stability_factor = 0 }
+                    } else_if = {
+                        limit = {
+                            has_offensive_war = yes
+                        }
+                        multiply_variable = { tot_economic_mobilisation_weekly_stability_factor = 0.005 }
+                    } else_if = {
+                        limit = {
+                            has_war = no
+                        }
+                        multiply_variable = { tot_economic_mobilisation_weekly_stability_factor = 0.02 }
+                    }
+                }
+            }
+        }
+
+        # calculate partial_economic_mobilisation_political_power_factor
+        effect = {
+            if = {
+                limit = {
+                    always = yes
+                }
+                every_country = {
+                    limit = {
+                        always = yes
+                    }
+                    set_variable = {
+                        var = partial_economic_mobilisation_political_power_factor
+                        value = war_exhaustion
+                    }
+
+                    if = {
+                        limit = {
+                            has_defensive_war = yes
+                        }
+                        multiply_variable = { partial_economic_mobilisation_political_power_factor = 0 }
+                    } else_if = {
+                        limit = {
+                            has_offensive_war = yes
+                            OR = {
+                                has_government = fascism
+                                has_government = communism
+                            }
+                        }
+                        multiply_variable = { partial_economic_mobilisation_political_power_factor = 0.05 }
+                    } else_if = {
+                        limit = {
+                            has_offensive_war = yes
+                        }
+                        multiply_variable = { partial_economic_mobilisation_political_power_factor = 0.1 }
+                    } else_if = {
+                        limit = {
+                            has_war = no
+                            OR = {
+                                has_government = fascism
+                                has_government = communism
+                            }
+                        }
+                        multiply_variable = { partial_economic_mobilisation_political_power_factor = 0.15 }
+                    } else_if = {
+                        limit = {
+                            has_war = no
+                        }
+                        multiply_variable = { partial_economic_mobilisation_political_power_factor = 0.2 }
+                    }
+                }
+            }
+        }
+
+        # calculate war_economy_political_power_factor
+        effect = {
+            if = {
+                limit = {
+                    always = yes
+                }
+                every_country = {
+                    limit = {
+                        always = yes
+                    }
+                    set_variable = {
+                        var = war_economy_political_power_factor
+                        value = war_exhaustion
+                    }
+
+                    if = {
+                        limit = {
+                            has_defensive_war = yes
+                        }
+                        multiply_variable = { war_economy_political_power_factor = 0 }
+                    } else_if = {
+                        limit = {
+                            has_offensive_war = yes
+                            OR = {
+                                has_government = fascism
+                                has_government = communism
+                            }
+                        }
+                        multiply_variable = { war_economy_political_power_factor = 0.1 }
+                    } else_if = {
+                        limit = {
+                            has_offensive_war = yes
+                        }
+                        multiply_variable = { war_economy_political_power_factor = 0.15 }
+                    } else_if = {
+                        limit = {
+                            has_war = no
+                            OR = {
+                                has_government = fascism
+                                has_government = communism
+                            }
+                        }
+                        multiply_variable = { war_economy_political_power_factor = 0.2 }
+                    } else_if = {
+                        limit = {
+                            has_war = no
+                        }
+                        multiply_variable = { war_economy_political_power_factor = 0.25 }
+                    }
+                }
+            }
+        }
+
+        # calculate tot_economic_mobilisation_political_power_factor
+        effect = {
+            if = {
+                limit = {
+                    always = yes
+                }
+                every_country = {
+                    limit = {
+                        always = yes
+                    }
+                    set_variable = {
+                        var = tot_economic_mobilisation_political_power_factor
+                        value = war_exhaustion
+                    }
+
+                    if = {
+                        limit = {
+                            has_defensive_war = yes
+                        }
+                        multiply_variable = { tot_economic_mobilisation_political_power_factor = 0.05 }
+                    } else_if = {
+                        limit = {
+                            has_offensive_war = yes
+                        }
+                        multiply_variable = { tot_economic_mobilisation_political_power_factor = 0.4 }
+                    } else_if = {
+                        limit = {
+                            has_war = no
+                        }
+                        multiply_variable = { tot_economic_mobilisation_political_power_factor = 0.8 }
+                    }
+                }
+            }
+        }
+    }
+}

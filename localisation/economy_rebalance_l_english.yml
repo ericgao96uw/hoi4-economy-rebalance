@@ -1,0 +1,9 @@
+﻿l_english:
+ partial_economic_mobilisation_dynamic_modifier: "Partial Mobilized Economy"
+ war_economy_dynamic_modifier: "War Economy"
+ tot_economic_mobilisation_dynamic_modifier: "Total Mobilized Economy"
+ partial_economic_mobilisation_reduce_daliy_political_power_factor_tt: "§RDue to war support, our daliy political power gain will reduced by§!:[?.partial_economic_mobilisation_political_power_factor|%R1]"
+ war_economy_reduce_daliy_political_power_factor_tt: "§RDue to war support, our daliy political power gain will reduced by§!:[?.war_economy_political_power_factor|%R1]"
+ war_economy_reduce_stability_factor_tt: "§RDue to war support,our stability will reduced by§!:[?.war_economy_stability_factor|%R1]"
+ tot_economic_mobilisation_reduce_daliy_political_power_factor_tt: "§RDue to war support, our daliy political power gain will reduced by§!:[?.tot_economic_mobilisation_political_power_factor|%R1]"
+ tot_economic_mobilisation_reduce_weekly_stability_factor_tt: "§RDue to war support,our weekly stability will reduced by§!:[?.tot_economic_mobilisation_weekly_stability_factor|%R1]"

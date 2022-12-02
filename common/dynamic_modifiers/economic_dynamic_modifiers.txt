@@ -1,0 +1,79 @@
+#	Example:
+#
+#	example_dynamic_modifier = {
+#		icon = "GFX_idea_unknown" # optional, will show up in guis if icon is specified
+#		enable = { always = yes } #optional, the modifier won't apply if not enabled
+#		remove_trigger = { always = no } #optional, will remove the modifier if true
+#       attacker_modifier = no  # if yes this modifier will also be read in combat for
+#                               # people engaging in the combat even if not in the state
+#
+#		# list of modifiers
+#		fuel_cost = 321
+#		max_fuel = var_max_fuel # will be taken from a variable
+#	}
+#
+#
+#	In a script file:
+#
+#	effect = {
+#		add_dynamic_modifier = {
+#			modifier = example_dynamic_modifier
+#			scope = GER # optional, if you specify this your dynamic modifier scoped to this scope (root is the effect scope)
+#			days = 14 # optional, will be removed after this many days passes
+#		}
+#	}
+#
+#	can be added to countries, states or unit leaders
+#	will only updated daily, unless forced by force_update_dynamic_modifier effect
+
+partial_economic_mobilisation_dynamic_modifier = {
+    enable = { always = yes }
+    remove_trigger = {
+        NOT = {
+            has_idea = partial_economic_mobilisation
+        }
+    }
+
+	production_speed_arms_factory_factor = 0.2
+	production_speed_bunker_factor = 0.2
+	production_speed_synthetic_refinery_factor = 0.2
+    political_power_factor = partial_economic_mobilisation_political_power_factor
+
+    custom_modifier_tooltip = partial_economic_mobilisation_reduce_daliy_political_power_factor_tt
+}
+
+war_economy_dynamic_modifier = {
+    enable = { always = yes }
+    remove_trigger = { 
+        NOT = {
+            has_idea = war_economy
+        }
+    }
+    
+	production_speed_arms_factory_factor = 0.3
+	production_speed_bunker_factor = 0.3
+	production_speed_synthetic_refinery_factor = 0.3
+    stability_factor = war_economy_stability_factor
+    political_power_factor = war_economy_political_power_factor
+
+    custom_modifier_tooltip = war_economy_reduce_daliy_political_power_factor_tt
+    custom_modifier_tooltip = war_economy_reduce_stability_factor_tt
+}
+
+tot_economic_mobilisation_dynamic_modifier = {
+    enable = { always = yes }
+    remove_trigger = { 
+        NOT = {
+            has_idea = tot_economic_mobilisation
+        }
+    }
+
+	production_speed_arms_factory_factor = 0.4
+	production_speed_bunker_factor = 0.4
+	production_speed_synthetic_refinery_factor = 0.4
+    stability_weekly = tot_economic_mobilisation_weekly_stability_factor
+    political_power_factor = tot_economic_mobilisation_political_power_factor
+
+    custom_modifier_tooltip = tot_economic_mobilisation_reduce_daliy_political_power_factor_tt
+    custom_modifier_tooltip = tot_economic_mobilisation_reduce_weekly_stability_factor_tt
+}
